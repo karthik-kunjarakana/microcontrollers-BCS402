@@ -1,0 +1,21 @@
+	AREA prog,code,readonly
+	MOV R0,#9
+UP1	MOV R1,R0
+	LDR R2,=ARRAY
+UP	LDRH R3,[R2],#2
+	LDRH R4,[R2]
+	BCS down
+	STRH R3,[R2],#-2
+	STRH R4,[R2],#2
+down	SUBS R1,#1
+	BNE UP
+	SUBS R0,#1
+	BNE UP1
+	LDR R2,=ARRAY
+	LDRH R3,[R2,#16]
+	LDRH R4,[R2,#18]
+	ADD R5,R3,R4
+stop B stop
+	AREA value,data,readwrite
+ARRAY DCW 0x1231,0x2535,0x1223,0x3213,0x7494,0x2539,0x6253,0x5373,0x7836,0x6846
+	END
